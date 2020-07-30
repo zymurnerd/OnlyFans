@@ -1,0 +1,132 @@
+{
+  "settings": {
+    "auto_site_choice": "",
+    "export_type": "json",
+    "multithreading": true,
+    "exit_on_completion": false,
+    "infinite_loop": true,
+    "loop_timeout": "0",
+    "socks5_proxy": "",
+    "cert": "",
+    "global_user_agent": ""
+  },
+  "supported": {
+    "onlyfans": {
+      "auth": {
+        "username": "",
+        "auth_id": "",
+        "auth_hash": "",
+        "auth_uniq_": "",
+        "sess": "",
+        "fp": "",
+        "app_token": "",
+        "user_agent": "",
+        "support_2fa": true
+      },
+      "settings": {
+        "auto_choice": "",
+        "auto_scrape_names": false,
+        "auto_scrape_apis": true,
+        "download_path": "/media/Data/onlyfans/onlyfans",
+        "file_name_format": "{date}_{file_name}.{ext}",
+        "text_length": "255",
+        "overwrite_files": false,
+        "date_format": "%Y-%m-%d_%H:%M:%S",
+        "ignored_keywords": [],
+        "ignore_type": "",
+        "export_metadata": true,
+        "delete_legacy_metadata": false,
+        "sort_free_paid_posts": true,
+        "blacklist_name": ""
+      },
+      "extra_auth_settings": {
+        "extra_auth": false,
+        "choose_auth": false,
+        "merge_auth": false
+      }
+    },
+    "patreon": {
+      "auth": {
+        "cf_clearance": "",
+        "session_id": "",
+        "user_agent": "",
+        "support_2fa": true
+      },
+      "settings": {
+        "auto_choice": "",
+        "auto_scrape_names": false,
+        "auto_scrape_apis": true,
+        "download_path": "{site_name}",
+        "file_name_format": "{file_name}.{ext}",
+        "text_length": "255",
+        "overwrite_files": false,
+        "date_format": "%d-%m-%Y",
+        "ignored_keywords": [],
+        "ignore_type": "",
+        "export_metadata": true,
+        "delete_legacy_metadata": false,
+        "sort_free_paid_posts": true,
+        "blacklist_name": ""
+      },
+      "extra_auth_settings": {
+        "extra_auth": false,
+        "choose_auth": false,
+        "merge_auth": false
+      }
+    },
+    "starsavn": {
+      "auth": {
+        "username": "",
+        "sess": "",
+        "user_agent": ""
+      },
+      "settings": {
+        "auto_choice": "",
+        "auto_scrape_names": false,
+        "auto_scrape_apis": true,
+        "download_path": "{site_name}",
+        "file_name_format": "{file_name}.{ext}",
+        "text_length": "255",
+        "overwrite_files": false,
+        "date_format": "%d-%m-%Y",
+        "ignored_keywords": [],
+        "ignore_type": "",
+        "export_metadata": true,
+        "blacklist_name": ""
+      },
+      "extra_auth_settings": {
+        "extra_auth": false,
+        "choose_auth": false,
+        "merge_auth": false
+      }
+    },
+    "fourchan": {
+      "auth": {},
+      "settings": {
+        "auto_choice": "",
+        "auto_scrape_names": false,
+        "download_path": "{site_name}",
+        "file_name_format": "{file_name}.{ext}",
+        "text_length": "255",
+        "overwrite_files": false,
+        "date_format": "%d-%m-%Y",
+        "boards": [],
+        "ignored_keywords": []
+      }
+    },
+    "bbwchan": {
+      "auth": {},
+      "settings": {
+        "auto_choice": "",
+        "auto_scrape_names": false,
+        "download_path": "{site_name}",
+        "file_name_format": "{file_name}.{ext}",
+        "text_length": "255",
+        "overwrite_files": false,
+        "date_format": "%d-%m-%Y",
+        "boards": [],
+        "ignored_keywords": []
+      }
+    }
+  }
+}
