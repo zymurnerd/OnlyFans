@@ -406,6 +406,8 @@ def prepare_scraper(session, site_name, only_links, link, locations, directory, 
                 f_offset_count = 0
                 while True:
                     y = json_request(session, link)
+                    if not y:
+                        return
                     if "list" in y:
                         if y["list"]:
                             master_set.append(link)
@@ -607,21 +609,27 @@ def download_media(media_set, session, directory, username, post_count, location
         media_set, [session], [directory], [username]))
 
 
-def create_session(test_ip=True):
-    max_threads = multiprocessing.cpu_count()
-    session = requests.Session()
-    proxies = {'http': 'socks5h://'+proxy,
-               'https': 'socks5h://'+proxy}
-    if proxy:
-        session.proxies = proxies
-        if cert:
-            session.verify = cert
-    session.mount(
-        'https://', HTTPAdapter(pool_connections=max_threads, pool_maxsize=max_threads))
-    if test_ip:
-        ip = session.get('https://checkip.amazonaws.com').text.strip()
-        print("Session IP: "+ip)
-    return session
+def create_session(custom_proxy="",test_ip=True):
+    for proxy2 in proxy:
+        max_threads = multiprocessing.cpu_count()
+        session = requests.Session()
+        proxy2 = custom_proxy if custom_proxy else proxy2
+        proxies = {'http': 'socks5h://'+proxy2,
+                'https': 'socks5h://'+proxy2}
+        if proxy2:
+            session.proxies = proxies
+            if cert:
+                session.verify = cert
+        session.mount(
+            'https://', HTTPAdapter(pool_connections=max_threads, pool_maxsize=max_threads))
+        if test_ip:
+            link = 'https://checkip.amazonaws.com'
+            r = json_request(session, link, json_format=False)
+            if not r:
+                continue
+            ip = r.text.strip()
+            print("Session IP: "+ip)
+        return session
 
 
 def get_paid_posts(session, app_token):
@@ -733,7 +741,6 @@ def create_auth(session, user_agent, app_token, auth_array, max_auth=2):
             auth_count += 1
     except Exception as e:
         log_error.exception(e)
-        # input("Enter to continue")
     array = dict()
     array["session"] = None
     array["me_api"] = me_api
@@ -766,12 +773,14 @@ def get_subscriptions(session, app_token, subscriber_count, me_api, auth_count=0
                     r["subscribedByData"]["expiredAt"] = datetime.utcnow().isoformat()
                     r["subscribedByData"]["price"] = r["subscribePrice"]
                     r["subscribedByData"]["subscribePrice"] = 0
-            r = [r]
+            if None != r:
+                r = [r]
         return r
     link_count = len(offset_array) if len(offset_array) > 0 else 1
     pool = ThreadPool(link_count)
     results = pool.starmap(multi, product(
         offset_array, [session]))
+    results = [x for x in results if x is not None]
     results = list(chain(*results))
     if blacklist_name:
         link = "https://onlyfans.com/api2/v2/lists?offset=0&limit=100&app-token="+app_token
